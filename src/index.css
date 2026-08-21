@@ -1,0 +1,392 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Root & Reset ─────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --ink: #0a0a0a;
+  --cream: #f0ede8;
+  --ash: #8a8680;
+  --violet: #9b8fd4;
+  --silver: #c8c4be;
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+}
+
+body {
+  background-color: var(--ink);
+  color: var(--cream);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+}
+
+/* ─── Selection ────────────────────────────────────────── */
+::selection {
+  background: rgba(155, 143, 212, 0.3);
+  color: var(--cream);
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 2px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: #2e2e2e;
+}
+
+/* ─── Grain Overlay ─────────────────────────────────────── */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 9999;
+  animation: grain 0.8s steps(1) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-1%, -2%); }
+  20% { transform: translate(2%, 1%); }
+  30% { transform: translate(-3%, 2%); }
+  40% { transform: translate(1%, -1%); }
+  50% { transform: translate(-1%, 3%); }
+  60% { transform: translate(2%, -2%); }
+  70% { transform: translate(-2%, 1%); }
+  80% { transform: translate(1%, 2%); }
+  90% { transform: translate(-1%, -1%); }
+}
+
+/* ─── Custom Cursor ─────────────────────────────────────── */
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--cream);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, opacity 0.3s ease;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(240, 237, 232, 0.4);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease, border-color 0.4s ease, opacity 0.3s ease;
+}
+
+.cursor-ring.hovering {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(155, 143, 212, 0.6);
+}
+
+.cursor-ring.on-project {
+  width: 80px;
+  height: 80px;
+  background: rgba(155, 143, 212, 0.08);
+  border-color: rgba(155, 143, 212, 0.5);
+}
+
+/* ─── Typography System ─────────────────────────────────── */
+.font-display {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.text-display-xl {
+  font-size: clamp(4.5rem, 14vw, 13rem);
+  line-height: 0.9;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.text-display-lg {
+  font-size: clamp(3rem, 9vw, 8rem);
+  line-height: 0.92;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.text-display-md {
+  font-size: clamp(2.2rem, 6vw, 5.5rem);
+  line-height: 0.95;
+  font-weight: 300;
+}
+
+.text-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+/* ─── Sections ───────────────────────────────────────────── */
+section {
+  position: relative;
+}
+
+/* ─── Reveal Animations ─────────────────────────────────── */
+.reveal-char {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.split-line {
+  overflow: hidden;
+}
+
+/* ─── Project Card ─────────────────────────────────────── */
+.project-image-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.project-image-wrap img {
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-card:hover .project-image-wrap img {
+  transform: scale(1.04);
+}
+
+/* ─── Line Decoration ──────────────────────────────────── */
+.h-line {
+  height: 1px;
+  background: #262626;
+}
+
+.v-line {
+  width: 1px;
+  background: #262626;
+}
+
+/* ─── Mouse Light ──────────────────────────────────────── */
+.mouse-light {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(155, 143, 212, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+
+/* ─── Skills Typography ─────────────────────────────────── */
+.skill-item {
+  position: relative;
+  display: inline-block;
+  cursor: default;
+  transition: color 0.3s ease, letter-spacing 0.4s ease;
+}
+
+.skill-item:hover {
+  color: var(--cream);
+  letter-spacing: 0.05em;
+}
+
+.skill-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: var(--violet);
+  transition: width 0.4s ease;
+}
+
+.skill-item:hover::after {
+  width: 100%;
+}
+
+/* ─── Marquee ───────────────────────────────────────────── */
+.marquee-track {
+  display: flex;
+  gap: 3rem;
+  white-space: nowrap;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-animate {
+  animation: marquee 20s linear infinite;
+}
+
+/* ─── About Image ───────────────────────────────────────── */
+.portrait-mask {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+/* ─── Magnetic Button ───────────────────────────────────── */
+.magnetic-btn {
+  position: relative;
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border: 1px solid rgba(240, 237, 232, 0.15);
+  color: var(--cream);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: transparent;
+  cursor: none;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.magnetic-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--violet);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.18, 1);
+  z-index: -1;
+}
+
+.magnetic-btn:hover::before {
+  transform: scaleX(1);
+}
+
+.magnetic-btn:hover {
+  border-color: var(--violet);
+}
+
+/* ─── Intro Screen ──────────────────────────────────────── */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0a;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* ─── Nav ───────────────────────────────────────────────── */
+.nav-link {
+  position: relative;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ash);
+  text-decoration: none;
+  cursor: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--cream);
+  transition: width 0.35s ease;
+}
+
+.nav-link:hover {
+  color: var(--cream);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ─── Scroll indicator ───────────────────────────────────── */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(8px); opacity: 0.4; }
+}
+
+.scroll-indicator {
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+/* ─── Contact links ─────────────────────────────────────── */
+.contact-link {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ash);
+  text-decoration: none;
+  transition: color 0.3s ease, letter-spacing 0.3s ease;
+  cursor: none;
+}
+
+.contact-link:hover {
+  color: var(--cream);
+  letter-spacing: 0.03em;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .cursor-dot, .cursor-ring {
+    display: none;
+  }
+
+  .text-display-xl {
+    font-size: clamp(4rem, 20vw, 6rem);
+  }
+
+  .grain::before {
+    opacity: 0.025;
+  }
+}

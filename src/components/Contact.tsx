@@ -127,7 +127,7 @@ export default function Contact() {
       {/* Background giant text */}
       <div
         ref={bgTextRef}
-        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden opacity-10 md:opacity-100 z-0"
         aria-hidden="true"
       >
         <span

@@ -173,7 +173,7 @@ export default function Hero() {
       {/* Robot 3D Character */}
       <div 
         ref={robotContainerRef}
-        className="absolute top-0 right-0 w-full md:w-[45%] lg:w-[40%] h-full opacity-0 pointer-events-none z-0"
+        className="relative md:absolute md:top-0 right-0 w-full md:w-[45%] lg:w-[40%] h-[40vh] md:h-full opacity-0 pointer-events-none z-0 order-2 md:order-none mt-8 md:mt-0"
         style={{ transformOrigin: 'center center' }}
       >
         <Suspense fallback={null}>
@@ -182,9 +182,9 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 px-8 md:px-16 lg:px-24">
+      <div className="relative z-10 px-8 md:px-16 lg:px-24 order-1 md:order-none">
         {/* Small label */}
-        <div className="text-label mb-8 opacity-0" ref={rolesRef}>
+        <div className="text-label mb-6 md:mb-8 opacity-0" ref={rolesRef}>
           Data Science Student &nbsp;·&nbsp; Developer &nbsp;·&nbsp; UI/UX Enthusiast
         </div>
 
@@ -194,7 +194,7 @@ export default function Hero() {
             ref={nameLine1Ref}
             className="font-display text-cream block leading-none select-none"
             style={{
-              fontSize: 'clamp(3.6rem, 10.4vw, 10.4rem)',
+              fontSize: 'clamp(2.8rem, 10vw, 10.4rem)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 0.88,
@@ -206,7 +206,7 @@ export default function Hero() {
             ref={nameLine2Ref}
             className="font-display block leading-none select-none"
             style={{
-              fontSize: 'clamp(3.6rem, 10.4vw, 10.4rem)',
+              fontSize: 'clamp(2.8rem, 10vw, 10.4rem)',
               fontWeight: 300,
               letterSpacing: '-0.02em',
               lineHeight: 0.88,
@@ -221,18 +221,18 @@ export default function Hero() {
         {/* Tagline */}
         <div
           ref={taglineRef}
-          className="mt-10 max-w-lg opacity-0"
+          className="mt-6 md:mt-10 max-w-lg opacity-0"
           style={{ marginLeft: '2px' }}
         >
           <p className="text-ash font-sans" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
             Where technology meets creativity — designing and building
-            <br />
+            <br className="hidden md:block" />
             premium digital products that feel intentional.
           </p>
         </div>
 
         {/* CTA */}
-        <div ref={ctaRef} className="mt-12 opacity-0">
+        <div ref={ctaRef} className="mt-8 md:mt-12 opacity-0">
           <a
             href="#work"
             className="magnetic-btn inline-block"
@@ -250,9 +250,9 @@ export default function Hero() {
       {/* Scroll indicator */}
       <div
         ref={scrollIndicatorRef}
-        className="absolute bottom-10 right-8 md:right-12 flex flex-col items-center gap-3 opacity-0"
+        className="absolute bottom-6 md:bottom-10 right-6 md:right-12 flex flex-col items-center gap-3 opacity-0 z-20"
       >
-        <span className="text-label" style={{ writingMode: 'vertical-lr', letterSpacing: '0.2em' }}>
+        <span className="text-label hidden md:block" style={{ writingMode: 'vertical-lr', letterSpacing: '0.2em' }}>
           Scroll
         </span>
         <div className="scroll-indicator" style={{ color: 'var(--dim)' }}>

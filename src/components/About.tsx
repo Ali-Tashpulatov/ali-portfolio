@@ -179,7 +179,7 @@ export default function About() {
           </p>
 
           {/* Small stats row */}
-          <div className="text-reveal-line mt-12 flex gap-12">
+          <div className="text-reveal-line mt-12 flex flex-wrap gap-8 md:gap-12">
             {[
               { value: '3+', label: 'Projects Built' },
               { value: '5+', label: 'Technologies' },
